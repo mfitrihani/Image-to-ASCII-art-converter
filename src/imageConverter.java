@@ -24,16 +24,18 @@ public class imageConverter {
         return imageTuple;
     }
 
-//    public void getImageBrightness() {
-//        int[][] imageRGBTuple = getImageRGBTuple();
-//        int[][] pixelBrightness = new int[imageRGBTuple[0].length][imageRGBTuple.length];
-//
-//        for (int y = 0;y<imageRGBTuple.length;y++){
-//            for (int x= 0; x<imageRGBTuple[0].length;x++){
-//                pixelBrightness[x][y] =
-//            }
-//        }
-//    }
+    public int[][] getImageBrightness() {
+        Color[][] imageRGBTuple = getImageRGBTuple();
+        int[][] pixelBrightness = new int[image.getHeight()][image.getWidth()];
+
+        for (int x = 0;x<image.getWidth();x++){
+            for (int y= 0; y<image.getHeight();y++){
+                int total = new Color(image.getRGB(x,y)).getGreen()+new Color(image.getRGB(x,y)).getBlue()+new Color(image.getRGB(x,y)).getRed();
+                pixelBrightness[y][x] = total/3;
+            }
+        }
+        return pixelBrightness;
+    }
 
     public int getImageHeight() {
         return image.getHeight();
