@@ -19,7 +19,7 @@ public class main {
         int[][] brightness = test.getImageBrightness();
         for (int y = 0; y < test.getImageHeight(); y++) {
             for (int x = 0; x < test.getImageWidth(); x++) {
-                System.out.print(brightness[x][y]);
+                System.out.print(brightness[x][y]+" ");
             }
             System.out.println();
         }
