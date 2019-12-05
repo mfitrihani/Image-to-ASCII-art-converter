@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.IOException;
 
 public class main {
@@ -7,7 +8,7 @@ public class main {
         System.out.println("Image Height: "+test.getImageHeight()+ " Image Width: "+test.getImageWidth());
         System.out.println("Image RGB tuple: ");
 
-        int[][] imageTuple = test.getImageRGBTuple();
+        Color[][] imageTuple = test.getImageRGBTuple();
         for (int y =0;y<test.getImageHeight();y++){
             for (int x=0;x<test.getImageWidth();x++){
                 System.out.print(imageTuple[x][y]);
