@@ -15,9 +15,9 @@ public class imageConverter {
         Color[][] imageTuple = new Color[image.getWidth()][image.getHeight()]; //create an array with size according to image size
 
         //get image RGB value and store them the array
-        for(int y=0;y<image.getWidth();y++){
-            for (int x=0;x<image.getHeight();x++){
-                imageTuple[y][x] = new Color(image.getRGB(y,x));
+        for(int x=0;x<image.getWidth();x++){
+            for (int y=0;y<image.getHeight();y++){
+                imageTuple[x][y] = new Color(image.getRGB(x,y));
             }
         }
 
@@ -26,12 +26,11 @@ public class imageConverter {
 
     public int[][] getImageBrightness() {
         Color[][] imageRGBTuple = getImageRGBTuple();
-        int[][] pixelBrightness = new int[image.getHeight()][image.getWidth()];
+        int[][] pixelBrightness = new int[image.getWidth()][image.getHeight()];
 
         for (int x = 0;x<image.getWidth();x++){
             for (int y= 0; y<image.getHeight();y++){
-                int total = new Color(image.getRGB(x,y)).getGreen()+new Color(image.getRGB(x,y)).getBlue()+new Color(image.getRGB(x,y)).getRed();
-                pixelBrightness[y][x] = total/3;
+                pixelBrightness[x][y] = (imageRGBTuple[x][y].getRed()+imageRGBTuple[x][y].getGreen()+imageRGBTuple[x][y].getBlue())/3;
             }
         }
         return pixelBrightness;

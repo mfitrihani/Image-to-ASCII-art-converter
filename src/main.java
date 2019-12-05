@@ -6,7 +6,7 @@ public class main {
         imageConverter test = new imageConverter(".idea//Resources//black_cat_image.jpg");
 
         System.out.println("Image Height: " + test.getImageHeight() + " Image Width: " + test.getImageWidth());
-//        System.out.println("Image RGB: ");
+        System.out.println("Image RGB: ");
 
 //        Color[][] imageTuple = test.getImageRGBTuple();
 //        for (int y =0;y<test.getImageHeight();y++){
@@ -19,7 +19,7 @@ public class main {
         int[][] brightness = test.getImageBrightness();
         for (int y = 0; y < test.getImageHeight(); y++) {
             for (int x = 0; x < test.getImageWidth(); x++) {
-                System.out.print(brightness[y][x]);
+                System.out.print(brightness[x][y]);
             }
             System.out.println();
         }
