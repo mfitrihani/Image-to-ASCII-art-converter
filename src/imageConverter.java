@@ -30,6 +30,14 @@ public class imageConverter {
         image = newImage;
     }
 
+    public void resizeImage(int width, int height){
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics g = newImage.createGraphics();
+        g.drawImage(image, 0, 0, width, height, null);
+        g.dispose();
+        image = newImage;
+    }
+
     public Color[][] getImageRGB() {
         //check if imageRGB has value
         if (imageRGB==null)
@@ -87,15 +95,17 @@ public class imageConverter {
         }
     }
 
-//    public void invertImageBrightness() {
-//        int[][] brightness = getImageBrightness();
-//        //invert brightness value
-//        for (int x = 0; x < image.getWidth(); x++) {
-//            for (int y = 0; y < image.getHeight(); y++) {
-//                imageBrightness[x][y] = 255 - brightness[x][y];
-//            }
-//        }
-//    }
+    public void invertImageBrightness() {
+        int[][] brightness = getImageBrightness();
+        int[][] temp = new int[image.getWidth()][image.getHeight()];
+        //invert brightness value
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                temp[x][y] = 255 - brightness[x][y];
+            }
+        }
+        imageBrightness = temp;
+    }
 
     public int getImageHeight() {
         return image.getHeight();
