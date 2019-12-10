@@ -65,11 +65,12 @@ public class imageConverter {
     public void generateImageBrightness(){
         //get brightness using RGB -> Luma conversion formula
         //Y = 0.2126 R + 0.7152 G + 0.0722 B
+        //imageBrightness[x][y] = Math.sqrt(0.299*Math.pow(rgbValue[x][y].getRed(),2)+0.587*Math.pow(rgbValue[x][y].getGreen(),2)+0.114*Math.pow(rgbValue[x][y].getBlue(),2));
         imageBrightness = new Double[image.getWidth()][image.getHeight()];
         Color[][] rgbValue = getImageRGB();
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                imageBrightness[x][y] = (double) (rgbValue[x][y].getRed()*0.2126+rgbValue[x][y].getGreen()*0.7152+rgbValue[x][y].getBlue()*0.0722);
+                imageBrightness[x][y] = rgbValue[x][y].getRed()*0.2126+rgbValue[x][y].getGreen()*0.7152+rgbValue[x][y].getBlue()*0.0722;
             }
         }
     }
@@ -84,14 +85,10 @@ public class imageConverter {
     public void generateImageASCIIArt(){
         ASCIIArt = new String[image.getWidth()][image.getHeight()];
         Double[][] imageBrightness = getImageBrightness();
-        double divider = (double)ASCII.length/(double)255;
+        double divider = ((double)ASCII.length-1)/(double)255;
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                if ((imageBrightness[x][y]*divider)%1>0.5){
-                    ASCIIArt[x][y] = String.format("%1$s%1$s%1$s",ASCII[(int) Math.ceil(imageBrightness[x][y]*divider)]);
-                }
-                else
-                    ASCIIArt[x][y] = String.format("%1$s%1$s%1$s",ASCII[(int) Math.floor(imageBrightness[x][y]*divider)]);
+                ASCIIArt[x][y] = String.format("%1$s%1$s%1$s",ASCII[(int) Math.round(imageBrightness[x][y]*divider)]);
             }
         }
     }
@@ -102,7 +99,7 @@ public class imageConverter {
         //invert brightness value
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                temp[x][y] = 255 - brightness[x][y];
+                temp[x][y] = 255d - brightness[x][y];
             }
         }
         imageBrightness = temp;
