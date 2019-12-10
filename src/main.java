@@ -2,7 +2,8 @@ import java.io.IOException;
 
 public class main {
     public static void main(String[] args) throws IOException {
-        imageConverter test = new imageConverter(".idea/Resources/cat2.jpg");
+        imageConverter test = new imageConverter(".idea/Resources/black_cat_image.jpg");
+        test.resizeImage(test.getImageWidth()/3,test.getImageHeight()/3);
         System.out.println("Image Height: " + test.getImageHeight() + " Image Width: " + test.getImageWidth());
         System.out.println("ASCII art: ");
 

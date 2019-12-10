@@ -7,7 +7,7 @@ import java.io.IOException;
 public class imageConverter {
     private BufferedImage image;
     private Color[][] imageRGB = null;
-    private int[][] imageBrightness = null;
+    private Double[][] imageBrightness = null;
     private String[][] ASCIIArt = null;
     private String[] ASCII =
             {"`", "^", ",", ":", ";", "I", "l", "!", "i",
@@ -55,7 +55,7 @@ public class imageConverter {
         }
     }
 
-    public int[][] getImageBrightness() {
+    public Double[][] getImageBrightness() {
         //check if imageBrightness has value
         if (imageBrightness == null)
             generateImageBrightness();
@@ -63,12 +63,13 @@ public class imageConverter {
     }
 
     public void generateImageBrightness(){
-        //get brightness by getting average of RGB Value
-        imageBrightness = new int[image.getWidth()][image.getHeight()];
+        //get brightness using RGB -> Luma conversion formula
+        //Y = 0.2126 R + 0.7152 G + 0.0722 B
+        imageBrightness = new Double[image.getWidth()][image.getHeight()];
         Color[][] rgbValue = getImageRGB();
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                imageBrightness[x][y] = (rgbValue[x][y].getRed() + rgbValue[x][y].getGreen() + rgbValue[x][y].getBlue()) / 3;
+                imageBrightness[x][y] = (double) (rgbValue[x][y].getRed()*0.2126+rgbValue[x][y].getGreen()*0.7152+rgbValue[x][y].getBlue()*0.0722);
             }
         }
     }
@@ -82,7 +83,7 @@ public class imageConverter {
 
     public void generateImageASCIIArt(){
         ASCIIArt = new String[image.getWidth()][image.getHeight()];
-        int[][] imageBrightness = getImageBrightness();
+        Double[][] imageBrightness = getImageBrightness();
         double divider = (double)ASCII.length/(double)255;
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
@@ -96,8 +97,8 @@ public class imageConverter {
     }
 
     public void invertImageBrightness() {
-        int[][] brightness = getImageBrightness();
-        int[][] temp = new int[image.getWidth()][image.getHeight()];
+        Double[][] brightness = getImageBrightness();
+        Double[][] temp = new Double[image.getWidth()][image.getHeight()];
         //invert brightness value
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
@@ -114,4 +115,5 @@ public class imageConverter {
     public int getImageWidth() {
         return image.getWidth();
     }
+
 }
